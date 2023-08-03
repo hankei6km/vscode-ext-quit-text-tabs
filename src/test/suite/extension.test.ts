@@ -87,6 +87,7 @@ suite('Extension Test Suite', () => {
     await vscode.commands.executeCommand('extension.quitTextTabs')
     // wait
     await waitTabsNot(2)
+    await waitTabsNot(1)
 
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
   })
@@ -124,5 +125,49 @@ suite('Extension Test Suite', () => {
     await waitTabs(0)
 
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+  })
+
+  test('quit text tabs(multiple tab groups)', async () => {
+    // precheck
+    assert.equal(vscode.window.tabGroups.all.length, 1)
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+
+    // open keyboard shortcuts(non text tabs)
+    await vscode.commands.executeCommand(
+      'workbench.action.openGlobalKeybindings'
+    )
+    // create new text tab
+    await vscode.commands.executeCommand(
+      'workbench.action.files.newUntitledFile'
+    )
+
+    // wait
+    await waitTabs(2)
+
+    // create new tab group
+    await vscode.commands.executeCommand('workbench.action.splitEditor')
+
+    // wait
+    await waitTagGroups(2)
+    await waitTabs(1)
+
+    // create new text tab
+    await vscode.commands.executeCommand(
+      'workbench.action.files.newUntitledFile'
+    )
+
+    // wait
+    // splited + created = 2
+    await waitTabs(2)
+
+    // run "quitTextTabs" command
+    await vscode.commands.executeCommand('extension.quitTextTabs')
+    // wait
+    await waitTagGroups(1)
+    await waitTabsNot(2)
+
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 1)
+    // waitTagGroups により 1 であることは確定しているが、念のため
+    assert.equal(vscode.window.tabGroups.all.length, 1)
   })
 })

@@ -14,7 +14,15 @@ export function activate(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand(
     'extension.quitTextTabs',
     async () => {
-      await quitTextTabs(vscode.window.tabGroups.activeTabGroup)
+      // ロックしているわけではないので他で tab group を操作されたらたぶんコケる
+      // いちおう気休めにコピー(浅いけど)を使う
+      const all = [...vscode.window.tabGroups.all]
+      for await (const tabGroup of all) {
+        // 直列にするとちょっと遅かったので並行させる
+        new Promise(async (resolve) => {
+          resolve(await quitTextTabs(tabGroup))
+        })
+      }
     }
   )
 
