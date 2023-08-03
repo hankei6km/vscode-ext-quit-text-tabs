@@ -2,7 +2,7 @@
   "name": "vscode-ext-quit-text-tabs",
   "version": "0.1.0",
   "displayName": "Quit text tabs",
-  "description": "Quit text tabs in current tag group",
+  "description": "Quit text tabs",
   "keywords": [],
   "author": "hankei6km <hankei6km@gmail.com> (https://github.com/hankei6km)",
   "publisher": "hankei6km",
