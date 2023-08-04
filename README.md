@@ -1,6 +1,6 @@
 # vscode-ext-quit-text-tabs
 
-VSCode extension to close text tabs.
+VSCode extension to quit(close) text tabs.
 
 ## Usage
 
