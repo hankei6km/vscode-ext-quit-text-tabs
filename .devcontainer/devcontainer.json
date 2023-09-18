@@ -14,7 +14,7 @@
   "remoteUser": "vscode",
   "remoteEnv": {},
   "postStartCommand": [],
-  "postCreateCommand": "npm ci && npx playwright install-deps",
+  "postCreateCommand": "npm ci && npx playwright install --with-deps",
   "customizations": {
     "vscode": {
       "extensions": [
