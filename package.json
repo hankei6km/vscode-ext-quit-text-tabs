@@ -42,7 +42,7 @@
     "test:unit": "mocha --require ts-node/register --require source-map-support/register --watch-extensions ts --ui tdd src/test/unit/**/*.test.ts",
     "test:electron": "xvfb-run node ./out/test/runTest.js",
     "pretest:electron": "node esbuild.test-electron.config.mjs",
-    "test:web": "vscode-test-web --headless=true --coi true --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=out/test/web/index.js",
+    "test:web": "playwright install && vscode-test-web --headless=true --coi true --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=out/test/web/index.js",
     "pretest:web": "node esbuild.test-web.config.mjs",
     "lint:type-check": "tsc --noEmit",
     "clean": "rimraf out/",
