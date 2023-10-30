@@ -58,7 +58,7 @@
     "@types/node": "^20.8.9",
     "@types/vscode": "^1.83.1",
     "@vscode/test-electron": "^2.3.6",
-    "@vscode/test-web": "^0.0.47",
+    "@vscode/test-web": "^0.0.48",
     "@vscode/vsce": "^2.22.0",
     "assert": "^2.1.0",
     "esast-util-from-js": "^2.0.1",
