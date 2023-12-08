@@ -1,4 +1,4 @@
-FROM node:18-bullseye
+FROM mcr.microsoft.com/devcontainers/typescript-node:20
 
 RUN apt update -y \
     && apt install -y --no-install-recommends xauth libgtk-3-0 xvfb \
