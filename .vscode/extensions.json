@@ -1,0 +1,7 @@
+{
+  // Configuration for CodeSandbox
+  "recommendations": [
+    // development
+    "esbenp.prettier-vscode"
+  ]
+}
