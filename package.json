@@ -45,6 +45,11 @@
         "command": "extension.quitTextTabs",
         "title": "Quit Text Tabs",
         "category": "View"
+      },
+      {
+        "command": "extension.viewActiveTabInfo",
+        "title": "View Active Tab Info",
+        "category": "View"
       }
     ]
   },

@@ -36,6 +36,16 @@ suite('Extension Test Suite', () => {
       }, 10)
     })
   }
+  function waitText(): Promise<string> {
+    return new Promise<string>((resolve) => {
+      const dispose = vscode.workspace.onDidChangeTextDocument((e) => {
+        if (e) {
+          dispose.dispose()
+          resolve(e.document.getText() ?? '')
+        }
+      })
+    })
+  }
   // close all tabGroups each tests in before
   setup(async () => {
     await vscode.commands.executeCommand('workbench.action.closeAllGroups')
@@ -268,5 +278,47 @@ suite('Extension Test Suite', () => {
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 1)
     // waitTagGroups により 1 であることは確定しているが、念のため
     assert.equal(vscode.window.tabGroups.all.length, 1)
+  })
+
+  test('view active tab info', async () => {
+    // precheck
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+
+    // open empty text document
+    const textDocument = await vscode.workspace.openTextDocument({})
+    await vscode.window.showTextDocument(textDocument, {
+      preview: false
+    })
+
+    // run "viewActiveTabInfo" command
+    const t = waitText()
+    await vscode.commands.executeCommand('extension.viewActiveTabInfo')
+
+    assert.deepEqual(JSON.parse(await t), {
+      tabType: 'text',
+      info: {
+        input: {
+          uri: {
+            $mid: 1,
+            external: 'untitled:Untitled-1',
+            fsPath: 'Untitled-1',
+            path: 'Untitled-1',
+            scheme: 'untitled'
+          }
+        },
+        isActive: true,
+        isDirty: false,
+        isPinned: false,
+        isPreview: false,
+        label: 'Untitled-1'
+      }
+    })
+
+    // close all tabGroups force
+    await vscode.commands.executeCommand('workbench.action.closeAllGroups')
+
+    // wait
+    await waitTabsNot(2)
+    await waitTabsNot(1)
   })
 })
