@@ -68,6 +68,33 @@ suite('Extension Test Suite', () => {
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 1)
   })
 
+  test('quit text tabs(with markdown preview)', async () => {
+    // precheck
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+
+    // create new text tab
+    await vscode.commands.executeCommand(
+      'workbench.action.files.newUntitledFile'
+    )
+
+    // open preview
+    await vscode.commands.executeCommand(
+      'markdown.showPreview',
+      vscode.Uri.file('README.md')
+    )
+
+    // wait
+    await waitTabs(2)
+
+    // run "quitTextTabs" command
+    await vscode.commands.executeCommand('extension.quitTextTabs')
+    // wait
+    await waitTabsNot(2)
+    await waitTabsNot(1)
+
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+  })
+
   test('quit text tabs(text tab only)', async () => {
     // precheck
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
