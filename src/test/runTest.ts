@@ -11,7 +11,7 @@ async function go() {
   try {
     const extensionDevelopmentPath = path.resolve(__dirname, '../../')
     const extensionTestsPath = path.resolve(__dirname, './suite')
-    const testWorkspace = path.resolve(__dirname, '../../tmp')
+    const testWorkspace = path.resolve(__dirname, '../../tmp/test')
     const vscodeExecutablePath = await downloadAndUnzipVSCode('stable')
     //const [cliPath, ...args] =
     //  resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath)
