@@ -19,15 +19,20 @@ export function tabSelectorText(targetTypes: TabInput[]): TabSelector {
   }
 }
 
+function hasViewType(tab: Tab): tab is Tab & { input: { viewType: string } } {
+  return typeof (tab as any).input?.viewType === 'string'
+}
 export function tabSelectorVeiwType(
   targetTypes: TabAddional[],
-  viewTypes: string[]
+  viewTypes: RegExp[]
 ): TabSelector {
   return (tab: Tab) => {
     return targetTypes.some((targetType) => {
       return (
         tab.input instanceof targetType &&
-        viewTypes.includes(tab.input.viewType)
+        viewTypes.some(
+          (viewType) => hasViewType(tab) && viewType.test(tab.input.viewType)
+        )
       )
     })
   }

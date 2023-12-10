@@ -149,10 +149,7 @@ suite('Extension Test Suite', () => {
     // set [] to "quitTextTabs.viewtypes"
     await vscode.workspace
       .getConfiguration()
-      .update('quitTextTabs.viewtypes', [
-        'test.view',
-        'mainThreadWebview-markdown.preview'
-      ])
+      .update('quitTextTabs.viewtypes', ['^test.view$', 'markdown\\.preview$'])
 
     // create new text tab
     await vscode.commands.executeCommand(
@@ -175,6 +172,34 @@ suite('Extension Test Suite', () => {
     await waitTabsNot(1)
 
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+  })
+
+  test('quit text tabs(viewStyles invalid regexp)', async () => {
+    // precheck
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+
+    // set [] to "quitTextTabs.viewtypes"
+    await vscode.workspace
+      .getConfiguration()
+      .update('quitTextTabs.viewtypes', ['^test.view)'])
+
+    // create new text tab
+    await vscode.commands.executeCommand(
+      'workbench.action.files.newUntitledFile'
+    )
+
+    // wait
+    await waitTabs(1)
+
+    // run "quitTextTabs" command
+    await vscode.commands.executeCommand('extension.quitTextTabs')
+
+    // If the catch fails, an error will be thrown here.
+
+    // Wait for a while to confirm that the state has not changed.
+    await new Promise<void>((resolve) => setTimeout(resolve, 100))
+
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 1)
   })
 
   test('quit text tabs(text tab only)', async () => {

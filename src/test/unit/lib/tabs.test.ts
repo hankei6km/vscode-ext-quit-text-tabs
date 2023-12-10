@@ -32,7 +32,7 @@ suite('Tabs Test Suite', () => {
     ]
     const tabSelectors = [
       tabSelectorText([MockText1, MockText2] as any),
-      tabSelectorVeiwType([MockViewType1] as any, ['mock1'])
+      tabSelectorVeiwType([MockViewType1] as any, [/mock1$/])
     ]
     assert.deepEqual(
       getTargetTabs(tabSelectors, [
