@@ -49,18 +49,29 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('extension.quitTextTabs', async () => {
-      const viewTypes =
-        vscode.workspace
-          .getConfiguration()
-          .get<string[]>('quitTextTabs.viewtypes') ?? []
-      const tabs = getTextTabs(
-        [
-          tabSelectorsBasic,
-          tabSelectorVeiwType([TabInputWebview, TabInputCustom], viewTypes)
-        ],
-        vscode.window.tabGroups.all
-      )
-      await vscode.window.tabGroups.close(tabs)
+      try {
+        const viewTypes =
+          vscode.workspace
+            .getConfiguration()
+            .get<string[]>('quitTextTabs.viewtypes')
+            ?.map((v) => {
+              try {
+                return new RegExp(v)
+              } catch (e) {
+                throw new Error(`Invalid RegExp: ${v}: ${e}`)
+              }
+            }) ?? []
+        const tabs = getTextTabs(
+          [
+            tabSelectorsBasic,
+            tabSelectorVeiwType([TabInputWebview, TabInputCustom], viewTypes)
+          ],
+          vscode.window.tabGroups.all
+        )
+        await vscode.window.tabGroups.close(tabs)
+      } catch (e) {
+        vscode.window.showErrorMessage(`quitTextTabs: ${e}`)
+      }
     })
   )
 

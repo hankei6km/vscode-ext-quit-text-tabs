@@ -32,7 +32,7 @@
           "type": "array",
           "description": "Specify the viewtype of additional tabs to close",
           "default": [
-            "mainThreadWebview-markdown.preview"
+            "markdown\\.preview$"
           ],
           "items": {
             "type": "string"
