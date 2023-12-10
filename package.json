@@ -24,6 +24,22 @@
   "browser": "./out/extension.js",
   "activationEvents": [],
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Quit Text Tabs",
+      "properties": {
+        "quitTextTabs.viewtypes": {
+          "type": "array",
+          "description": "Specify the viewtype of additional tabs to close",
+          "default": [
+            "mainThreadWebview-markdown.preview"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.quitTextTabs",

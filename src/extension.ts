@@ -24,17 +24,21 @@ function getTextTabs(
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const tabSelectors = [
-    tabSelectorText([TabInputText, TabInputTextDiff]),
-    tabSelectorVeiwType(
-      [TabInputWebview, TabInputCustom],
-      ['mainThreadWebview-markdown.preview']
-    )
-  ]
+  const tabSelectorsBasic = tabSelectorText([TabInputText, TabInputTextDiff])
   const disposable = vscode.commands.registerCommand(
     'extension.quitTextTabs',
     async () => {
-      const tabs = getTextTabs(tabSelectors, vscode.window.tabGroups.all)
+      const viewTypes =
+        vscode.workspace
+          .getConfiguration()
+          .get<string[]>('quitTextTabs.viewtypes') ?? []
+      const tabs = getTextTabs(
+        [
+          tabSelectorsBasic,
+          tabSelectorVeiwType([TabInputWebview, TabInputCustom], viewTypes)
+        ],
+        vscode.window.tabGroups.all
+      )
       await vscode.window.tabGroups.close(tabs)
     }
   )
