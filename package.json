@@ -1,6 +1,6 @@
 {
   "name": "vscode-ext-quit-text-tabs",
-  "version": "0.1.2",
+  "version": "0.3.0",
   "displayName": "Quit text tabs",
   "description": "Quit text tabs",
   "keywords": [],
