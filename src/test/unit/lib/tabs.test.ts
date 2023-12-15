@@ -43,4 +43,29 @@ suite('Tabs Test Suite', () => {
       tabs
     )
   })
+
+  test('getTargetTabs(ignore: pinned)', () => {
+    assert.deepEqual(getTargetTabs([], []), [])
+    const tabs = [
+      { input: new MockText1() },
+      { input: new MockText2() },
+      { input: new MockViewType1() }
+    ]
+    const tabSelectors = [
+      tabSelectorText([MockText1, MockText2] as any),
+      tabSelectorVeiwType([MockViewType1] as any, [/mock1$/])
+    ]
+    assert.deepEqual(
+      getTargetTabs(
+        tabSelectors,
+        [
+          ...tabs,
+          { input: new MockText1(), isPinned: true },
+          { input: new MockOther2() }
+        ] as any,
+        { pinned: true }
+      ),
+      tabs
+    )
+  })
 })
