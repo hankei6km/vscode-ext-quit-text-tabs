@@ -16,6 +16,7 @@
   "engines": {
     "vscode": "^1.80.0"
   },
+  "icon": "images/icon.png",
   "categories": [
     "Other"
   ],
