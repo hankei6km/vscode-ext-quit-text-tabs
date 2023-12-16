@@ -10,6 +10,7 @@ type TabInput = typeof TabInputText | typeof TabInputTextDiff
 type TabAddional = typeof TabInputWebview | typeof TabInputCustom
 
 export type TabSelector = (tab: Tab) => boolean
+export type TabIgnore = { pinned?: boolean }
 
 export function tabSelectorText(targetTypes: TabInput[]): TabSelector {
   return (tab: Tab) => {
@@ -40,9 +41,12 @@ export function tabSelectorVeiwType(
 
 export function getTargetTabs(
   tabSelectors: TabSelector[],
-  tabs: readonly Tab[]
+  tabs: readonly Tab[],
+  ignore: TabIgnore = {}
 ): Tab[] {
   return tabs.filter((tab) => {
-    return tabSelectors.some((isTarget) => isTarget(tab))
+    return tabSelectors.some(
+      (isTarget) => isTarget(tab) && !(ignore.pinned && tab.isPinned)
+    )
   })
 }

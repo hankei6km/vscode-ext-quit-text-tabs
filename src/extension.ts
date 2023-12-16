@@ -6,18 +6,19 @@ import {
   TabInputCustom
 } from 'vscode'
 import type { Tab, TabGroup } from 'vscode'
-import type { TabSelector } from './lib/tab'
+import type { TabIgnore, TabSelector } from './lib/tab'
 import { getTargetTabs, tabSelectorVeiwType, tabSelectorText } from './lib/tab'
 
 function getTextTabs(
   tabSelctors: TabSelector[],
-  tabGroups: readonly TabGroup[]
+  tabGroups: readonly TabGroup[],
+  ignore: TabIgnore = {}
 ): Tab[] {
   const tabs: Tab[] = []
 
   for (const tabGroup of tabGroups) {
     // append th return of getTargetTabs to tabs
-    tabs.push(...getTargetTabs(tabSelctors, tabGroup.tabs))
+    tabs.push(...getTargetTabs(tabSelctors, tabGroup.tabs, ignore))
   }
 
   return tabs
@@ -66,7 +67,8 @@ export function activate(context: vscode.ExtensionContext) {
             tabSelectorsBasic,
             tabSelectorVeiwType([TabInputWebview, TabInputCustom], viewTypes)
           ],
-          vscode.window.tabGroups.all
+          vscode.window.tabGroups.all,
+          { pinned: true }
         )
         await vscode.window.tabGroups.close(tabs)
       } catch (e) {

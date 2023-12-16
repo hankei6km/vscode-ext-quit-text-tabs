@@ -46,6 +46,17 @@ suite('Extension Test Suite', () => {
       })
     })
   }
+  function waitPinned(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      const id = setInterval(() => {
+        const activeTab = vscode.window.tabGroups.activeTabGroup.activeTab
+        if (activeTab && activeTab.isPinned) {
+          clearInterval(id)
+          resolve()
+        }
+      }, 10)
+    })
+  }
   // close all tabGroups each tests in before
   setup(async () => {
     await vscode.commands.executeCommand('workbench.action.closeAllGroups')
@@ -174,6 +185,32 @@ suite('Extension Test Suite', () => {
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
   })
 
+  test('quit text tabs(ignore pinned)', async () => {
+    // precheck
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
+
+    // create new text tabs
+    await vscode.commands.executeCommand(
+      'workbench.action.files.newUntitledFile'
+    )
+    await vscode.commands.executeCommand(
+      'workbench.action.files.newUntitledFile'
+    )
+
+    // wait
+    await waitTabs(2)
+
+    // pin tab
+    await vscode.commands.executeCommand('workbench.action.pinEditor')
+    await waitPinned()
+
+    // run "quitTextTabs" command
+    await vscode.commands.executeCommand('extension.quitTextTabs')
+    // wait
+    await waitTabsNot(2)
+
+    assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 1)
+  })
   test('quit text tabs(viewStyles invalid regexp)', async () => {
     // precheck
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
