@@ -8,6 +8,10 @@
     {
       "command": "npx playwright install --with-deps",
       "name": "npx playwright install --with-deps"
+    },
+    {
+      "command": "cp /usr/local/share/prepare-commit-msg-context/prepare-commit-msg .git/hooks/prepare-commit-msg",
+      "name": "cp /usr/local/share/prepare-commit-msg-context/prepare-commit-msg .git/hooks/prepare-commit-msg"
     }
   ],
 

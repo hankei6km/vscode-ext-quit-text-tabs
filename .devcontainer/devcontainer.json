@@ -5,7 +5,8 @@
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode"
     },
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/hankei6km/h6-devcontainers-features/prepare-commit-msg-context:latest": {}
     // "ghcr.io/devcontainers/features/node:1": {},
   },
 
@@ -15,6 +16,7 @@
   "remoteEnv": {},
   "postStartCommand": [],
   "postCreateCommand": "npm ci && npx playwright install --with-deps",
+  "postAttachCommand": "cp /usr/local/share/prepare-commit-msg-context/prepare-commit-msg .git/hooks/prepare-commit-msg",
   "customizations": {
     "vscode": {
       "extensions": [
