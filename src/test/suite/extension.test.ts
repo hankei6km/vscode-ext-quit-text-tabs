@@ -104,6 +104,8 @@ suite('Extension Test Suite', () => {
       'workbench.action.files.newUntitledFile'
     )
 
+    await waitTabs(1)
+
     // open preview
     await vscode.commands.executeCommand(
       'markdown.showPreview',
