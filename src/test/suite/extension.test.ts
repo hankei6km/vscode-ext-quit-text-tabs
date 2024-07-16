@@ -13,7 +13,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 10)
+      }, 50)
     })
   }
   function waitTabs(num: number): Promise<void> {
@@ -23,7 +23,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 10)
+      }, 50)
     })
   }
   function waitTabsNot(num: number): Promise<void> {
@@ -33,7 +33,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 10)
+      }, 50)
     })
   }
   function waitText(): Promise<string> {
@@ -54,7 +54,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 10)
+      }, 50)
     })
   }
   // close all tabGroups each tests in before
