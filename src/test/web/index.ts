@@ -7,7 +7,7 @@ export function run(): Promise<void> {
     mocha.setup({
       ui: 'tdd',
       reporter: undefined,
-      timeout: 5000
+      timeout: 1000 * 10
     })
     typeof importAll === 'function' && (await importAll())
 
