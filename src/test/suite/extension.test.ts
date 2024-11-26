@@ -6,6 +6,18 @@ import * as vscode from 'vscode'
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.')
 
+  function waitSecs(num: number): Promise<void> {
+    let cnt = 0
+    return new Promise<void>((resolve) => {
+      const id = setInterval(() => {
+        if (cnt >= num) {
+          clearInterval(id)
+          resolve()
+        }
+        cnt++
+      }, 500)
+    })
+  }
   function waitTagGroups(num: number): Promise<void> {
     return new Promise<void>((resolve) => {
       const id = setInterval(() => {
@@ -13,7 +25,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 50)
+      }, 500)
     })
   }
   function waitTabs(num: number): Promise<void> {
@@ -23,7 +35,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 50)
+      }, 500)
     })
   }
   function waitTabsNot(num: number): Promise<void> {
@@ -33,7 +45,7 @@ suite('Extension Test Suite', () => {
           clearInterval(id)
           resolve()
         }
-      }, 50)
+      }, 500)
     })
   }
   function waitText(): Promise<string> {
@@ -59,6 +71,7 @@ suite('Extension Test Suite', () => {
   }
   // close all tabGroups each tests in before
   setup(async () => {
+    await waitSecs(1)
     await vscode.commands.executeCommand('workbench.action.closeAllGroups')
     // wait
     await waitTagGroups(1)
