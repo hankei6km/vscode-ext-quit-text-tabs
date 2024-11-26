@@ -74,7 +74,7 @@
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@playwright/test": "^1.49.0",
     "@types/minimist": "^1.2.5",
-    "@types/mocha": "^10.0.9",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^22.9.0",
     "@types/vscode": "^1.80.0",
     "@vscode/test-electron": "^2.4.1",
