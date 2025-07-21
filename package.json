@@ -82,7 +82,7 @@
     "@vscode/vsce": "^3.6.0",
     "assert": "^2.1.0",
     "esast-util-from-js": "^2.0.1",
-    "esbuild": "^0.25.7",
+    "esbuild": "^0.25.8",
     "estree-util-to-js": "^2.0.0",
     "glob": "^11.0.3",
     "mocha": "^11.7.1",
