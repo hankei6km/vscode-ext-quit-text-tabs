@@ -84,7 +84,7 @@
     "esast-util-from-js": "^2.0.1",
     "esbuild": "^0.27.0",
     "estree-util-to-js": "^2.0.0",
-    "glob": "^11.0.3",
+    "glob": "^11.1.0",
     "mocha": "^11.7.5",
     "rimraf": "^6.1.0",
     "serve": "^14.2.5",
