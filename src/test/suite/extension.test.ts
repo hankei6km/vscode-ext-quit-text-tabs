@@ -88,10 +88,8 @@ suite('Extension Test Suite', () => {
     // precheck
     assert.equal(vscode.window.tabGroups.activeTabGroup.tabs.length, 0)
 
-    // open keyboard shortcuts(non text tabs)
-    await vscode.commands.executeCommand(
-      'workbench.action.openGlobalKeybindings'
-    )
+    // open welcome tab(non text tabs)
+    await vscode.commands.executeCommand('workbench.action.openWalkthrough')
     // create new text tab
     await vscode.commands.executeCommand(
       'workbench.action.files.newUntitledFile'
