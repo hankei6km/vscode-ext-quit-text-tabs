@@ -86,7 +86,7 @@
     "estree-util-to-js": "^2.0.0",
     "glob": "^13.0.1",
     "mocha": "^11.7.5",
-    "rimraf": "^6.1.2",
+    "rimraf": "^6.1.3",
     "serve": "^14.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
